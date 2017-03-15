@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "msh.h"
-#include "surf_pg.h"
+#include "msh_pg.h"
 
 void generateOutputNames(const char * mshFile, char ** vrt, char ** idx){
 	static const char extv[] = ".vrt";
@@ -49,9 +49,9 @@ int main(int argc, char * argv[]) {
 	msh_t * my_mesh = msh_load(fin);
 	fclose(fin);
 
-	list_pg_t * phys_grps = msh_get_surf_pg(my_mesh);
+	msh_list_pg_t * phys_grps = msh_get_surf_pg(my_mesh);
 	
-	for (list_pg_t it = *phys_grps; it != NULL; it = it->tail) {
+	for (msh_list_pg_t it = *phys_grps; it != NULL; it = it->tail) {
 		elem_t ** elems = it->head->elems;
 		for (int i = 0; i < it->head->elems_nb; i++) {
 			for (int v = 0; v < elems[i]->nodes_nb; v++) {
@@ -71,7 +71,7 @@ int main(int argc, char * argv[]) {
 	fclose(fvrt);
 	
 	int color = 0;
-	for (list_pg_t it = *phys_grps; it != NULL; it = it->tail) {
+	for (msh_list_pg_t it = *phys_grps; it != NULL; it = it->tail) {
 		elem_t ** elems = it->head->elems;
 		for (int i = 0; i < it->head->elems_nb; i++) {
 			for (int v = 0; v < elems[i]->nodes_nb; v++) {
@@ -83,6 +83,6 @@ int main(int argc, char * argv[]) {
 	}
 	fclose(fidx);
 
-	msh_free_surf_pg(phys_grps);
+	msh_free_list_pg(phys_grps);
 	msh_free(my_mesh);
 }

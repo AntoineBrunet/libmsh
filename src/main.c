@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "msh.h"
-#include "surf_pg.h"
+#include "msh_pg.h"
 
 int main(int argc, char * argv[]) {
 	if (argc < 2) {
@@ -9,12 +9,12 @@ int main(int argc, char * argv[]) {
 	FILE * f = fopen(argv[1], "r");
 	msh_t * my_mesh = msh_load(f);
 	msh_print_info(my_mesh);
-	list_pg_t * phys =  msh_get_surf_pg(my_mesh);
+	msh_list_pg_t * phys =  msh_get_surf_pg(my_mesh);
 
-	list_pg_t it = *phys;
+	msh_list_pg_t it = *phys;
 	int size = 0;
 	while (it != NULL) { 
-		printf("Surface Phy. %d: %lu elements\n", it->head->id, 
+		printf("Surface Phy. %d: %lu elements\n", it->head->tag, 
 				it->head->elems_nb);
 		size++;
 		it = it->tail;
