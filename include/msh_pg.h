@@ -33,9 +33,17 @@ struct node_pg {
  * Extract the list of physical surfaces from a mesh.
  * @param msh The mesh.
  * @return A sorted linked list of the physical surfaces of the mesh, which
- * needs to be freed with msh_free_msh_pg.
+ * needs to be freed with msh_free_list_pg.
  */
 msh_list_pg_t * msh_get_surf_pg(const msh_t * msh);
+
+/**
+ * Extract the list of physical volumes from a mesh.
+ * @param msh The mesh.
+ * @return A sorted linked list of the physical volumes of the mesh, which
+ * needs to be freed with msh_free_list_pg.
+ */
+msh_list_pg_t * msh_get_volume_pg(const msh_t * msh);
 
 /**
  * Frees a pg list. Also frees each physical group in the list.

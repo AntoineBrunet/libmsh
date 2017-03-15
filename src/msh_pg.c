@@ -13,6 +13,18 @@ msh_list_pg_t * msh_get_surf_pg(const msh_t * msh) {
 	return map;
 }
 
+msh_list_pg_t * msh_get_volume_pg(const msh_t * msh) {
+	msh_list_pg_t * map = malloc(sizeof(msh_list_pg_t));
+	msh_list_pg_init(map);
+	for (size_t i = 0; i < msh->elems_nb; i++) {
+		elem_t * elm = msh->elems + i;
+		if (elm->type == TETRAHEDRON) {
+			msh_list_pg_insert(map, elm->tags[0], elm);
+		}
+	}
+	return map;
+}
+
 void msh_free_list_pg(msh_list_pg_t * spg) {
 	msh_list_pg_t it = *spg;
 	while (it != NULL) {
