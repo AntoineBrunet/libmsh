@@ -14,7 +14,7 @@ int main(int argc, char * argv[]) {
 	list_pg_t it = *phys;
 	int size = 0;
 	while (it != NULL) { 
-		printf("Surface Phy. %d: %d elements\n", it->head->id, 
+		printf("Surface Phy. %d: %lu elements\n", it->head->id, 
 				it->head->elems_nb);
 		size++;
 		it = it->tail;

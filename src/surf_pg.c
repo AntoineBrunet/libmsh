@@ -4,7 +4,7 @@
 list_pg_t * msh_get_surf_pg(const msh_t * msh) {
 	list_pg_t * map = malloc(sizeof(list_pg_t));
 	map_pg_init(map);
-	for (int i = 0; i < msh->elems_nb; i++) {
+	for (size_t i = 0; i < msh->elems_nb; i++) {
 		elem_t * elm = msh->elems + i;
 		if (elm->type == TRIANGLE) {
 			map_pg_insert(map, elm->tags[0], elm);
