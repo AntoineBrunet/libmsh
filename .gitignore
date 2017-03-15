@@ -1,0 +1,5 @@
+*.idx
+*.vrt
+data/*.aux
+data/*.pdf
+

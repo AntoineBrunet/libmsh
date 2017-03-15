@@ -1,0 +1,16 @@
+\documentclass{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\def\mshname{bi-unD.msh}
+
+\begin{document}
+\begin{tikzpicture}
+	\begin{axis}[axis equal]
+		\addplot3[patch, patch table with point meta={\mshname.idx},
+			y filter/.expression={y<0&&x>0?nan:y}, unbounded coords=jump,
+		mesh/interior colormap name=hot, colormap/blackwhite] 
+		file {\mshname.vrt};
+	\end{axis}
+\end{tikzpicture}
+\end{document}
+
