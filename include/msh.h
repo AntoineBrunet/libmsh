@@ -3,6 +3,13 @@
 
 #include <stdio.h>
 
+typedef struct format {
+	unsigned int major;
+	unsigned int minor;
+	unsigned int type;
+	unsigned int data_size;
+} format_t;
+
 typedef struct node {
 	int id;
 	int flags;
@@ -29,6 +36,7 @@ typedef struct elem {
 } elem_t;
 
 typedef struct msh {
+	format_t format;
 	size_t nodes_nb;
 	size_t elems_nb;
 	node_t * nodes;	

@@ -72,6 +72,16 @@ void _msh_read_elems(FILE * f, msh_t * m) {
 	}
 }
 
+void _msh_read_format(FILE * f, msh_t * m) {
+	fscanf(f, "%u.%u %u %u",
+			&(m->format.major),
+			&(m->format.minor),
+			&(m->format.type),
+			&(m->format.data_size)
+		);
+
+}
+
 void _msh_close_section(FILE * f) {
 	char tmp[100];
 	tmp[0] = '\0';
@@ -91,6 +101,8 @@ msh_t * msh_load(FILE * file) {
 			case ELEMS:
 				_msh_read_elems(file, new_mesh);
 				break;
+			case FORMAT:
+				_msh_read_format(file, new_mesh);
 			default:
 				break;
 		}
@@ -100,14 +112,14 @@ msh_t * msh_load(FILE * file) {
 }
 
 void msh_print_info(const msh_t * msh) {
+	printf("GMSH %u.%u %u %u\n", 
+			msh->format.major,
+			msh->format.minor,
+			msh->format.type,
+			msh->format.data_size
+		);
 	printf("%lu nodes\n",msh->nodes_nb);
 	printf("%lu elems\n",msh->elems_nb);
-	for (size_t i = 0; i < msh->elems_nb; i++) {
-		elem_t * elm = msh->elems + i;
-		if (elm->type == TRIANGLE) {
-			printf("Triangle %d in PG %d, GG %d\n", elm->id, elm->tags[0], elm->tags[1]);
-		}
-	}
 }
 
 void msh_free(msh_t * msh) {
